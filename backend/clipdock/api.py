@@ -119,15 +119,16 @@ def create_app(settings=None, runner=None):
         while True:
             ident, payload = await state["queue"].get()
             try:
-                update(ident, status="processing", progress=1)
                 loop = asyncio.get_running_loop()
 
                 def progress(n, loop=loop, ident=ident):
                     loop.call_soon_threadsafe(update_progress, ident, n)
 
-                await asyncio.to_thread(
-                    runner, "download", payload, cfg.root / ident, progress
-                )
+                async with state["runner_slots"]:
+                    update(ident, status="processing", progress=1)
+                    await asyncio.to_thread(
+                        runner, "download", payload, cfg.root / ident, progress
+                    )
                 if not (cfg.root / ident / ("output." + payload["format"])).is_file():
                     raise MediaError("DOWNLOAD_FAILED", "No se generó el archivo.")
                 update(ident, status="completed", progress=100)
@@ -178,7 +179,7 @@ def create_app(settings=None, runner=None):
             db=db,
             queue=asyncio.Queue(maxsize=cfg.queue_cap),
             signer=URLSafeTimedSerializer(cfg.signing_key, salt="clipdock-inspect-v1"),
-            inspect_active=0,
+            runner_slots=asyncio.Semaphore(cfg.concurrency),
         )
         for ident, body in query("SELECT id,body FROM jobs").fetchall():
             if json.loads(body)["status"] in ("queued", "processing"):
@@ -320,9 +321,9 @@ def create_app(settings=None, runner=None):
             raise APIError(
                 "INVALID_URL", "Introduce una URL pública compatible."
             ) from None
-        if state["inspect_active"] >= cfg.concurrency:
+        if state["runner_slots"].locked():
             raise APIError("BUSY", "Servicio ocupado. Inténtalo más tarde.", 429)
-        state["inspect_active"] += 1
+        await state["runner_slots"].acquire()
         try:
             result = await asyncio.to_thread(
                 runner,
@@ -338,7 +339,7 @@ def create_app(settings=None, runner=None):
                 "EXTRACTION_FAILED", "No fue posible inspeccionar este medio público."
             ) from None
         finally:
-            state["inspect_active"] -= 1
+            state["runner_slots"].release()
         token = state["signer"].dumps({"url": url, "metadata": result})
         return dict(result, token=token)
 

@@ -71,4 +71,20 @@ export CLIPDOCK_DATA_DIR=./data
 uv run uvicorn main:app --host 127.0.0.1 --port 8000 --workers 1 --no-access-log
 ```
 
-Keep the signing key stable if restarting with the same data directory. `.env` is not loaded automatically. No secrets have been added to the backend files and no commit was made.
+Keep the signing key stable if restarting with the same data directory. `.env` is not loaded automatically. No secrets have been added to the backend files and no commit was made by the implementation subagent.
+
+## Parent-agent audit corrections and revalidation
+
+The independent audit found the implicit yt-dlp geographic bypass default and separate inspection/download concurrency counters. The parent wrote regression tests and observed failures before changing production code. `geo_bypass=False` now prevents the permitted LinkedIn extractor from generating a fake geographic forwarding IP. One shared semaphore now limits both execution types: a second inspection while a download owns the only slot returns HTTP429/BUSY.
+
+```text
+uv run pytest tests/test_geo_policy.py -q      # RED: fake forwarding IP generated; GREEN: 1 passed
+uv run pytest tests/test_shared_concurrency.py -q  # RED: HTTP200 instead of 429; GREEN: 1 passed
+uv run pytest -q
+24 passed in 7.22s
+uv run ruff check .
+All checks passed!
+```
+
+The Render example now includes the exact public frontend origin for CORS. The parent deployed only the disconnected frontend to Vercel Production; backend remains local. See root `VERIFICATION.md` for the current deployment state rather than interpreting the original subagent snapshot as a project-wide claim.
+

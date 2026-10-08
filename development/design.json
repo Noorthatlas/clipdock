@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T15:10:48.195491+00:00",
+  "title": "Design System: ClipDock",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "workspace",
+        "value": "0 6px 24px #172b3b06",
+        "purpose": "Low-opacity structural shadow beneath the working sheet."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": ".15s",
+        "purpose": "URL border and button background/border transitions."
+      },
+      {
+        "name": "media-reveal",
+        "value": ".3s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Media detail clip-path reveal."
+      },
+      {
+        "name": "progress-transform",
+        "value": ".4s cubic-bezier(.16,1,.3,1)",
+        "purpose": "Left-origin scaleX progress update."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation:none!important;transition:none!important;scroll-behavior:auto",
+        "purpose": "Observed reduced-motion overrides."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "min-width:1500px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "max-width:1000px"
+      },
+      {
+        "name": "mobile",
+        "value": "max-width:700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "description": "Filled preparation/download action.",
+      "html": "<button class=\"ds-button ds-primary\">Preparar descarga</button>",
+      "css": ".ds-button{min-height:44px;border:1px solid #c3ced8;border-radius:6px;display:inline-flex;justify-content:center;align-items:center;gap:9px;padding:10px 17px;background:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s,border-color .15s;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Arial,sans-serif;cursor:pointer}.ds-button:focus-visible{outline:3px solid #3c73a7;outline-offset:3px}.ds-button:disabled{background:#e9edf1;color:#637181;border-color:#e0e5ea;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-button{transition:none!important}}.ds-primary{background:var(--navy,#183956);color:#fff;width:100%;border-color:var(--navy,#183956)}.ds-primary:not(:disabled):hover{background:#244e70;border-color:#244e70}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Inspection button",
+      "kind": "button",
+      "description": "Quiet full-width source inspection action.",
+      "html": "<button class=\"ds-button ds-inspect\">Analizar enlace</button>",
+      "css": ".ds-button{min-height:44px;border:1px solid #c3ced8;border-radius:6px;display:inline-flex;justify-content:center;align-items:center;gap:9px;padding:10px 17px;background:#fff;font-size:13px;font-weight:600;text-decoration:none;transition:background .15s,border-color .15s;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Arial,sans-serif;cursor:pointer}.ds-button:focus-visible{outline:3px solid #3c73a7;outline-offset:3px}.ds-button:disabled{background:#e9edf1;color:#637181;border-color:#e0e5ea;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-button{transition:none!important}}.ds-inspect{width:100%;color:var(--navy,#183956);background:#f8fafc}.ds-inspect:not(:disabled):hover{background:#f0f5fa;border-color:#6d8daa}",
+      "refersTo": "button-inspect"
+    },
+    {
+      "name": "URL control",
+      "kind": "input",
+      "description": "URL wrapper owns focus treatment; icon omitted from this extraction snippet.",
+      "html": "<label for=\"ds-url\">Enlace del video</label><div class=\"ds-url-control\"><input id=\"ds-url\" type=\"url\" placeholder=\"Pega aquí el enlace del video\"></div>",
+      "css": ".ds-url-control{display:flex;align-items:center;border:1px solid #c4ced8;border-radius:6px;gap:10px;padding:0 13px;height:48px;background:#fff;transition:border-color .15s}.ds-url-control:focus-within{border-color:#3c73a7;outline:3px solid #dce7f2;outline-offset:1px}.ds-url-control input{outline:none!important;width:100%;min-width:0;border:0;height:100%;font-size:14px;background:transparent;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Arial,sans-serif}.ds-url-control input::placeholder{color:#657383}@media(prefers-reduced-motion:reduce){.ds-url-control{transition:none!important}}",
+      "refersTo": "url-control"
+    },
+    {
+      "name": "Selected format",
+      "kind": "custom",
+      "description": "Native radio card; selected availability is independent of disabled state.",
+      "html": "<label class=\"ds-format ds-selected\"><input type=\"radio\" name=\"ds-format\" checked><span><strong>MP4</strong><small>Video con audio, si está disponible</small></span><span class=\"ds-radio\" aria-hidden=\"true\"></span></label>",
+      "css": ".ds-format{position:relative;display:flex;align-items:center;gap:13px;padding:15px 14px;border:1px solid #d7dfe7;border-radius:6px;margin-bottom:10px;color:#596979;cursor:pointer;min-height:78px;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Arial,sans-serif}.ds-selected{border-color:#4f7699;background:#f4f8fc;color:#183956}.ds-format input{position:absolute;opacity:0;width:1px;height:1px}.ds-format:has(input:focus-visible){outline:3px solid #3c73a7;outline-offset:3px}.ds-format span:first-of-type{flex:1;min-width:0}.ds-format strong{display:block;font-size:14px;font-weight:650}.ds-format small{display:block;font-size:11px;margin-top:2px;line-height:1.45}.ds-radio{width:16px;height:16px;border:5px solid #315b7f;border-radius:50%;background:#fff;flex-shrink:0}.ds-format:has(input:disabled){cursor:not-allowed;color:#617080}.ds-selected:has(input:disabled){border-color:#b9c7d4;background:#f6f8fa}.ds-format:has(input:disabled) .ds-radio{border-color:#c6cfd8;background:#f3f5f7}",
+      "refersTo": "format-selected"
+    },
+    {
+      "name": "Disconnected panel",
+      "kind": "card",
+      "description": "Actual replacement for the desk when the API origin is missing or invalid; icon omitted in this snippet.",
+      "html": "<section class=\"ds-configuration\" role=\"alert\"><div><h2>El servidor aún no está conectado</h2><p>La descarga no está disponible por ahora. Falta configurar una dirección válida de NEXT_PUBLIC_API_URL para el servidor de medios.</p></div></section>",
+      "css": ".ds-configuration{padding:38px;display:flex;gap:16px;border:1px solid var(--line,#dce2e8);background:white;border-radius:8px;color:var(--ink,#172b3b);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Arial,sans-serif;line-height:1.5}.ds-configuration h2{margin:0;font-size:18px;font-weight:650;letter-spacing:-.015em}.ds-configuration p{margin:10px 0 0;color:var(--muted,#556474);font-size:14px;max-width:65ch}@media(max-width:700px){.ds-configuration{padding:24px 20px;gap:12px}.ds-configuration h2{font-size:17px}.ds-configuration p{font-size:12px;overflow-wrap:anywhere}}"
+    }
+  ]
+}

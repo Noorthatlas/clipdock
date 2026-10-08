@@ -36,6 +36,7 @@ def options(payload, folder):
         "no_warnings": True,
         "noplaylist": True,
         "allow_unplayable_formats": False,
+        "geo_bypass": False,
         "skip_download": False,
         "socket_timeout": 15,
         "retries": 1,

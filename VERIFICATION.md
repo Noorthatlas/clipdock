@@ -78,4 +78,11 @@ Ninguna descarga remota autorizada completa de estas seis plataformas quedó ver
 4. Verificar en el navegador público inspección → creación de trabajo → estado → descarga MP4 y MP3; archivos, tamaño/duración/códecs con FFprobe.
 5. Dockerfile preparado, pero no construido: el daemon Docker no está disponible aquí. No se presenta el archivo como una imagen ejecutada.
 
-No hay cargos contratados, evasión de DRM, uso de cookies ni simulación de éxitos.
+No hay cargos contratados, uso de cookies ni simulación de éxitos.
+
+## Correcciones tras la revisión independiente
+
+- La revisión detectó que yt-dlp habilitaba por defecto `geo_bypass`. El principal reprodujo el problema: el extractor LinkedIn generaba una IP ficticia para `X-Forwarded-For` con contexto geográfico. Se añadió `geo_bypass=False` y la misma prueba pasa sin generar ninguna IP ficticia. No se verificó ni se realizó una descarga georrestringida.
+- La concurrencia de inspecciones y descargas estaba separada. Se reprodujo una inspección HTTP200 durante una descarga con concurrencia1. Ahora ambas comparten un semáforo: en ese escenario la inspección responde HTTP429/BUSY y el pico de runners es1.
+- Se añadió el origen CORS público exacto a `.env.render.example` y se renombró un test frontend para indicar explícitamente que su transporte fetch es simulado.
+- Revalidación del principal: **24 tests backend pasan en 7.22s**, Ruff sin hallazgos; **23 tests frontend pasan**, TypeScript sin errores. La verificación de producción sigue siendo frontend desconectado; estas correcciones no hacen que exista un backend público.

@@ -1,0 +1,49 @@
+> clipdock-frontend@1.0.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /opt/data/projects/clipdock/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  23 passed (23)
+   Start at  15:03:52
+   Duration  5.92s (environment 42%, tests 33%, transform 9%, setup 8%, import 7%)
+
+Environment  jsdom was created 3 times · 2.32s total, 42% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+
+
+> clipdock-frontend@1.0.0 typecheck
+> tsc --noEmit
+
+
+> clipdock-frontend@1.0.0 build
+> next build
+
+▲ Next.js 16.4.0 (Turbopack)
+✓ Running next.config.ts took 30ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.3s
+  Running TypeScript ...
+  Finished TypeScript in 2.3s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/4) ...
+  Generating static pages using 1 worker (1/4) 
+  Generating static pages using 1 worker (2/4) 
+  Generating static pages using 1 worker (3/4) 
+✓ Generating static pages using 1 worker (4/4) in 206ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+└ ○ /icon.svg
+
+
+○  (Static)  prerendered as static content
+
+found 0 vulnerabilities
+Exit code: 0

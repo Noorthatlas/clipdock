@@ -1,0 +1,80 @@
+{
+  "mode": "metadata_only_no_remote_media_downloads",
+  "results": [
+    {
+      "extractor": "YoutubeIE",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=IB3lcPjvWLA",
+      "status": "metadata_failed",
+      "error": {
+        "code": "RESTRICTED_MEDIA",
+        "message": "El medio requiere acceso restringido o no est\u00e1 disponible p\u00fablicamente."
+      }
+    },
+    {
+      "extractor": "FacebookIE",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/radiokicksfm/videos/3676516585958356/",
+      "status": "metadata_failed",
+      "error": {
+        "code": "EXTRACTION_FAILED",
+        "message": "La plataforma no permite acceder a este medio p\u00fablico en este momento."
+      }
+    },
+    {
+      "extractor": "InstagramIE",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/reel/Chunk8-jurw/",
+      "status": "metadata_ok",
+      "metadata": {
+        "title": "Video by instagram",
+        "thumbnail": null,
+        "platform": "instagram",
+        "duration": null,
+        "qualities": [
+          0,
+          840,
+          1280
+        ],
+        "has_audio": false
+      }
+    },
+    {
+      "extractor": "LinkedInIE",
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/posts/mishalkhawaja_sendinblueviews-toronto-digitalmarketing-ugcPost-6850898786781339649-mM20",
+      "status": "metadata_ok",
+      "metadata": {
+        "title": "#sendinblueviews #toronto #digitalmarketing #nowhiring #sendinblue #teamsendinblue | Mishal K.",
+        "thumbnail": null,
+        "platform": "linkedin",
+        "duration": null,
+        "qualities": [
+          0
+        ],
+        "has_audio": true
+      }
+    },
+    {
+      "extractor": "TikTokIE",
+      "platform": "tiktok",
+      "url": "https://www.tiktok.com/@barudakhb_/video/6984138651336838402",
+      "status": "metadata_failed",
+      "error": {
+        "code": "RESTRICTED_MEDIA",
+        "message": "El medio requiere acceso restringido o no est\u00e1 disponible p\u00fablicamente."
+      }
+    },
+    {
+      "extractor": "TwitterIE",
+      "platform": "x",
+      "url": "https://twitter.com/starwars/status/665052190608723968",
+      "status": "metadata_failed",
+      "error": {
+        "code": "RESTRICTED_MEDIA",
+        "message": "El medio requiere acceso restringido o no est\u00e1 disponible p\u00fablicamente."
+      }
+    }
+  ],
+  "count": 6
+}

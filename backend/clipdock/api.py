@@ -23,6 +23,7 @@ from itsdangerous import BadSignature, URLSafeTimedSerializer
 from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt
 
 from clipdock.media import MediaError
+from clipdock.sample import SAMPLE_URL
 from clipdock.security import Unsafe, normalize
 
 
@@ -76,6 +77,11 @@ class JobBody(BaseModel):
     authorized: StrictBool
     format: Literal["mp4", "mp3"]
     quality: StrictInt = 720
+
+
+class SampleBody(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    authorized: StrictBool
 
 
 class APIError(Exception):
@@ -321,6 +327,14 @@ def create_app(settings=None, runner=None):
             raise APIError(
                 "INVALID_URL", "Introduce una URL pública compatible."
             ) from None
+        return await inspect_source(url, platform)
+
+    @app.post("/api/sample/inspect")
+    async def inspect_sample(body: SampleBody):
+        authorize(body.authorized)
+        return dict(await inspect_source(SAMPLE_URL, "sample"), source_url=SAMPLE_URL)
+
+    async def inspect_source(url, platform):
         if state["runner_slots"].locked():
             raise APIError("BUSY", "Servicio ocupado. Inténtalo más tarde.", 429)
         await state["runner_slots"].acquire()

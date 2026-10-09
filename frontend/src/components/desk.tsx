@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowDownToLine, ArrowRight, Check, CircleAlert, FileVideo, Film, ImageOff, Link2, Music2, ShieldCheck } from 'lucide-react';
 import { detectPlatform, PLATFORMS, safeDownload, safeThumbnail, type Platform } from '../lib/security';
 
-type Inspection = { token: string; title: string; thumbnail: string | null; platform: Platform; duration: number | null; qualities: number[]; has_audio: boolean };
+type Inspection = { token: string; title: string; thumbnail: string | null; platform: Platform | 'sample'; source_url?: string; duration: number | null; qualities: number[]; has_audio: boolean };
 type Props = { apiOrigin: string };
 
 export default function Desk({ apiOrigin }: Props) {
@@ -71,13 +71,15 @@ export default function Desk({ apiOrigin }: Props) {
     }
   }
 
-  async function inspect() {
-    if (!rights || !platform || inspecting || busy) return;
+  async function inspect(sample = false) {
+    if (!rights || (!sample && !platform) || inspecting || busy) return;
+    if (sample) { invalidate(); setUrl(''); }
     const version = revision.current;
     setInspecting(true); setError(''); setMedia(null); setDownload(''); setImageFailed(false);
     try {
-      const result: Inspection = await request('/api/inspect', { url: url.trim(), authorized: true });
+      const result: Inspection = await request(sample ? '/api/sample/inspect' : '/api/inspect', sample ? { authorized: true } : { url: url.trim(), authorized: true });
       if (version !== revision.current) return;
+      if (sample) setUrl(result.source_url ?? '');
       setMedia(result); setQuality(result.qualities[0] ?? 0); setFormat(result.qualities.length ? 'mp4' : 'mp3');
     } catch (cause) {
       if (version === revision.current) setError(cause instanceof TypeError ? 'No pudimos conectar con el servidor. Comprueba tu conexión y vuelve a intentarlo.' : cause instanceof Error ? cause.message : 'No se pudo analizar el enlace.');
@@ -130,12 +132,13 @@ export default function Desk({ apiOrigin }: Props) {
         <form onSubmit={event => { event.preventDefault(); void inspect(); }}>
           <label htmlFor="url" className="field-label">Enlace del video</label>
           <div className="url-control"><Link2 size={19} aria-hidden="true"/><input id="url" type="url" value={url} placeholder="Pega aquí el enlace del video" autoComplete="off" spellCheck={false} aria-describedby="url-help" onChange={event => { invalidate(); setUrl(event.target.value); }}/></div>
-          <div id="url-help" className="url-help">{platform ? <><Check size={14} aria-hidden="true"/>{PLATFORMS[platform]} · enlace reconocido</> : url ? 'Introduce un enlace de una de las seis plataformas compatibles.' : 'YouTube, TikTok, Instagram, Facebook, LinkedIn o X.'}</div>
+          <div id="url-help" className="url-help">{media?.platform === 'sample' ? 'Muestra propia CC0 · no es una plataforma externa' : platform ? <><Check size={14} aria-hidden="true"/>{PLATFORMS[platform]} · enlace reconocido</> : url ? 'Introduce un enlace de una de las seis plataformas compatibles.' : 'YouTube, TikTok, Instagram, Facebook, LinkedIn o X.'}</div>
           <label className="rights"><input type="checkbox" checked={rights} onChange={event => { setRights(event.target.checked); if (!event.target.checked) invalidate(); }}/><span>Soy titular del contenido o tengo permiso para descargarlo.</span></label>
           <button className="button inspect-button" disabled={!rights || !platform || inspecting || busy} type="submit">{inspecting ? 'Analizando enlace…' : 'Analizar enlace'}{!inspecting && <ArrowRight size={17} aria-hidden="true"/>}</button>
         </form>
+        <div className="owned-sample"><button type="button" disabled={!rights || inspecting || busy} onClick={() => void inspect(true)}>Probar con muestra propia CC0</button><p className="field-note">Comprueba el procesamiento, no el acceso a las plataformas.</p></div>
         <div className="preview-section">
-          <div className="preview-top"><span>{media ? 'Vista previa · miniatura' : 'Vista previa'}</span>{media && <span>{PLATFORMS[media.platform]}</span>}</div>
+          <div className="preview-top"><span>{media ? 'Vista previa · miniatura' : 'Vista previa'}</span>{media && <span>{media.platform === 'sample' ? 'Muestra propia CC0' : PLATFORMS[media.platform]}</span>}</div>
           <figure className="preview">
             {media && thumbnail && !imageFailed ? <img src={thumbnail} alt={'Miniatura de ' + media.title} referrerPolicy="no-referrer" onError={() => setImageFailed(true)}/> : <div className="preview-empty">{media ? <ImageOff size={28} strokeWidth={1.5} aria-hidden="true"/> : <Film size={30} strokeWidth={1.5} aria-hidden="true"/>}<strong>{media ? 'Miniatura no disponible' : inspecting ? 'Buscando tu video' : 'Tu video empieza con un enlace'}</strong><p>{media ? 'Puedes preparar el archivo sin la miniatura.' : inspecting ? 'Consultando los datos y formatos disponibles.' : 'Analiza el enlace para ver su información\ny las opciones de descarga.'}</p></div>}
             {inspecting && <figcaption className="sr-only" role="status">Consultando el video y sus formatos disponibles.</figcaption>}

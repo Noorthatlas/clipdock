@@ -12,12 +12,13 @@ from yt_dlp.networking._urllib import UrllibRH
 
 from clipdock.media import MediaError, describe
 from clipdock.network import install_guard
-from clipdock.security import normalize
+from clipdock.sample import SAMPLE_SHA256, OwnedSampleIE, validate_source
 
 
 class PublicYDL(yt_dlp.YoutubeDL):
     def __init__(self, opts):
         super().__init__(opts, auto_init=False)
+        self.add_info_extractor(OwnedSampleIE())
         for cls in gen_extractor_classes():
             if cls.__name__.startswith(
                 ("Youtube", "TikTok", "Instagram", "Facebook", "LinkedIn", "Twitter")
@@ -61,7 +62,7 @@ def options(payload, folder):
 
 
 def inspect_media(payload):
-    normalize(payload["url"])
+    validate_source(payload)
     with PublicYDL(options(payload, Path.cwd())) as ydl:
         info = ydl.extract_info(payload["url"], download=False)
         return describe(info, payload["platform"], payload.get("max_duration", 1200))
@@ -225,6 +226,11 @@ def download_media(payload, folder, ydl_class=PublicYDL):
                     "DOWNLOAD_FAILED", "No se generó el archivo de origen."
                 )
             paths.append(path)
+    if payload.get("platform") == "sample":
+        import hashlib
+
+        if any(hashlib.sha256(path.read_bytes()).hexdigest() != SAMPLE_SHA256 for path in paths):
+            raise MediaError("SOURCE_CHANGED", "La muestra descargada no coincide con el archivo autorizado.")
     probes = [probe_media(path, payload.get("max_duration", 1200)) for path in paths]
     if payload["format"] == "mp3" and not probes[0]["audio"]:
         raise MediaError("NO_AUDIO", "El medio no contiene una pista de audio.")
@@ -352,7 +358,7 @@ def main():
     install_guard()
     disable_external_downloaders()
     try:
-        normalize(payload["url"])
+        validate_source(payload)
         result = (
             inspect_media(payload)
             if sys.argv[1] == "inspect"

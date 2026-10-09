@@ -1,6 +1,25 @@
 # Verificación de ClipDock
 
-## Estado final actual: despliegue parcial, NO operativo de extremo a extremo
+## Estado vigente — 9 de octubre de 2026: frontend y backend conectados; descarga pública aún NO verificada
+
+Actualización en preparación: diagnóstico público propio CC0 con URI y SHA-256 fijados, separado de las seis plataformas. Revalidación: 26 tests backend, Ruff limpio, 24 tests frontend, TypeScript y build Next.js limpios. Un TestClient con runner REAL confirmó HTTP GitHub público → worker aislado yt-dlp → FFmpeg → archivos MP4 H264/AAC y MP3; esa ejecución todavía es local, no evidencia de descarga desde la web pública. La inspección de Sintel (`HOfdboHvshg`, 53s, licencia https://durian.blender.org/sharing/) también devolvió HTTP400/RESTRICTED_MEDIA desde Render. No se sorteó.
+
+- Web pública: https://clipdock-two.vercel.app
+- Backend real: https://clipdock-api.onrender.com
+- Render: `srv-db4d20cs728c73achdbg`, Docker, plan `free` leído de vuelta, una instancia, sin disco, previews desactivados y auto-deploy desactivado.
+- Deploy Render: `dep-db4d20ss728c73acheug`, `live`, commit `90089cc28480b1195c955e5333d06cb886f9a2f9`. Build Docker remoto completado; `/health` devuelve HTTP200 y `{"status":"ok"}`.
+- El usuario confirmó que la cuenta Render MooProjects no tiene método de pago. No se añadió ninguno ni se contrató plan de pago. Las cuotas siguen siendo compartidas y el servicio puede suspenderse o perder archivos al reiniciarse.
+- Vercel: `dpl_Gr15Pt3NAVkFXaWuEEsHRe4UBrvB`, `target=production`, `readyState=READY`, alias público conservado.
+- `NEXT_PUBLIC_API_URL=https://clipdock-api.onrender.com` configurada y leída de vuelta exclusivamente en Production. El nuevo build muestra la mesa de exportación y su CSP permite conectar solo con esa API.
+- CORS backend exacto: `https://clipdock-two.vercel.app`; preflight OPTIONS HTTP200 con ese origen.
+- Configuración efectiva: concurrencia1, cola3, duración120s, máximo16MiB, presupuesto128MiB, timeout90s, archivos30min, tokens10min; clave de firma privada almacenada en Render, nunca en Git.
+- Revalidación local: 24 tests backend pasan, Ruff limpio; 23 tests frontend pasan, TypeScript sin errores.
+- Chromium real desktop1440 y móvil390: HTTP200, sin overflow ni errores de página. El control de permiso funciona. La inspección real de Big Buck Bunny en YouTube llega desde la web pública a la API y devuelve HTTP400/`RESTRICTED_MEDIA`, mostrado al usuario.
+- Evidencia de navegador actual: `/opt/data/cache/scratch/clipdock-connected-production/browser-results.json`, `desktop.png`, `mobile.png`. Las ejecuciones preliminares que capturaron el anunciador vacío de Next.js fueron descartadas; solo se cuenta la ejecución que esperó la respuesta HTTP real.
+
+**No se ha completado aún una descarga MP4 ni conversión MP3 desde la web pública. No se declara el proyecto terminado.** Se busca una muestra pública con licencia suficiente y extracción compatible; no se usarán cookies, proxies ni evasión geográfica/DRM para superar el bloqueo de YouTube.
+
+## Registro histórico — 8 de octubre de 2026: despliegue parcial, NO operativo de extremo a extremo
 
 Frontend publicado en **Vercel Production**, no Preview:
 

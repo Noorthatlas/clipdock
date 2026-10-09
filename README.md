@@ -80,3 +80,9 @@ Raíz `frontend`, framework Next.js, `npm ci`, `npm run build`, sin override de 
 ## Retención y restricciones
 
 Archivos y tokens caducan. El servicio no recupera archivos borrados por un host efímero. Los límites de tamaño, duración, plazo, colas y concurrencia evitan transcodificaciones sin cota; no prometen impedir cualquier abuso o probar derechos de autor. Antes de abrir al público, preparar condiciones y canal de reclamaciones del operador; este repositorio no inventa datos legales de la empresa.
+
+## Diagnóstico público con contenido propio
+
+La mesa ofrece «Probar con muestra propia CC0» después de confirmar permiso. `POST /api/sample/inspect` acepta exclusivamente `{ "authorized": true }`; el servidor fija un único archivo público de 2 segundos con tono sintetizado, proveniencia y SHA-256 inmutables. El archivo se descarga realmente mediante yt-dlp y se convierte mediante FFmpeg en los mismos workers, cola, límites y enlaces con capacidades del producto. La inspección ordinaria conserva su allowlist de seis plataformas y rechaza GitHub y URLs internas.
+
+Esta función verifica procesamiento y entrega de archivos; **no acredita descargas desde YouTube, TikTok, Instagram, Facebook, LinkedIn ni X**. Las restricciones externas se muestran como errores, sin usar cookies, autenticación, proxies o evasión de DRM/geobloqueo. La fuente y licencia están en `backend/tests/assets/README.md`; los resultados reales de producción se registran en `VERIFICATION.md`.

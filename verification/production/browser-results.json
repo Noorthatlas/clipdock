@@ -1,0 +1,298 @@
+[
+  {
+    "device": "desktop",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "http": 200,
+    "source": "first-party CC0 sample, NOT a social platform",
+    "inspectionHTTP": 200,
+    "platform": "sample",
+    "apiResponses": [
+      {
+        "path": "/api/sample/inspect",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs",
+        "status": 202
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/c24438676f1344d9c96f7e564dcfae0d/file",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs",
+        "status": 202
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/25ff6483ad885c61483d042c57ec0502/file",
+        "status": 200
+      }
+    ],
+    "pageErrors": [],
+    "downloads": [
+      {
+        "format": "mp4",
+        "path": "evidence/public-downloads/desktop.mp4",
+        "bytes": 22385,
+        "sha256": "65920efbf10d2ba4a16a90001bcab0724c03b24744c65a07830057c21ffd54bc",
+        "suggestedFilename": "clipdock.mp4",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 320,
+              "height": 180
+            },
+            {
+              "codec_name": "aac",
+              "codec_type": "audio"
+            }
+          ],
+          "format": {
+            "duration": "2.020000",
+            "size": "22385"
+          }
+        },
+        "widths": {
+          "viewport": 1440,
+          "document": 1440
+        }
+      },
+      {
+        "format": "mp3",
+        "path": "evidence/public-downloads/desktop.mp3",
+        "bytes": 50302,
+        "sha256": "951374e2cd883da3a6b69d1e3e0c4e7f5f3c88e63c2e1b8ea5d524c3fa8d6b7d",
+        "suggestedFilename": "clipdock.mp3",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "mp3",
+              "codec_type": "audio"
+            }
+          ],
+          "format": {
+            "duration": "2.063673",
+            "size": "50302"
+          }
+        },
+        "widths": {
+          "viewport": 1440,
+          "document": 1440
+        }
+      }
+    ]
+  },
+  {
+    "device": "mobile",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "http": 200,
+    "source": "first-party CC0 sample, NOT a social platform",
+    "inspectionHTTP": 200,
+    "platform": "sample",
+    "apiResponses": [
+      {
+        "path": "/api/sample/inspect",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs",
+        "status": 202
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/f4f44928f6561494475ef4020e9f6c42/file",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs",
+        "status": 202
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0",
+        "status": 200
+      },
+      {
+        "path": "/api/jobs/e6f284116fb220b9129d5ace697dbaf0/file",
+        "status": 200
+      }
+    ],
+    "pageErrors": [],
+    "downloads": [
+      {
+        "format": "mp4",
+        "path": "evidence/public-downloads/mobile.mp4",
+        "bytes": 22385,
+        "sha256": "65920efbf10d2ba4a16a90001bcab0724c03b24744c65a07830057c21ffd54bc",
+        "suggestedFilename": "clipdock.mp4",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 320,
+              "height": 180
+            },
+            {
+              "codec_name": "aac",
+              "codec_type": "audio"
+            }
+          ],
+          "format": {
+            "duration": "2.020000",
+            "size": "22385"
+          }
+        },
+        "widths": {
+          "viewport": 390,
+          "document": 390
+        }
+      },
+      {
+        "format": "mp3",
+        "path": "evidence/public-downloads/mobile.mp3",
+        "bytes": 50302,
+        "sha256": "951374e2cd883da3a6b69d1e3e0c4e7f5f3c88e63c2e1b8ea5d524c3fa8d6b7d",
+        "suggestedFilename": "clipdock.mp3",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "codec_name": "mp3",
+              "codec_type": "audio"
+            }
+          ],
+          "format": {
+            "duration": "2.063673",
+            "size": "50302"
+          }
+        },
+        "widths": {
+          "viewport": 390,
+          "document": 390
+        }
+      }
+    ]
+  }
+]

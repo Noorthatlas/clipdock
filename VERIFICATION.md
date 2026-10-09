@@ -1,6 +1,23 @@
 # Verificación de ClipDock
 
-## Estado vigente — 9 de octubre de 2026: frontend y backend conectados; descarga pública aún NO verificada
+## Estado vigente — 9 de octubre de 2026: procesamiento público MP4/MP3 verificado con muestra propia; plataformas externas pendientes
+
+- Web definitiva: https://clipdock-two.vercel.app — HTTP200; Vercel Production / READY, no Preview.
+- Backend: https://clipdock-api.onrender.com — `/health` HTTP200; Render Docker / Free / live, una instancia, sin disco ni previews de pago. No se contrató plan ni se añadió método de pago.
+- Código desplegado en ambos: `b1589b894a6e9fcb7abd001da34a4fde20cde903`. Vercel `dpl_H4fi4JcorjxZrVMradYxS5WGu3ZS`; Render `dep-db4dfo3ncjis73cl62cg`. IDs, estado y SHA leídos de vuelta. Vercel se publicó por CLI autenticada; su metadato Git coincide aunque `gitSource` es null.
+- Variable Production, CORS y CSP conservan exclusivamente el origen real de la API y el frontend autorizado.
+- Prueba pública SIN mocks: Chromium escritorio1440 y emulación móvil táctil390. Confirmación de permiso → inspección HTTP200 → job HTTP202 → estado HTTP200 → clic nativo «Descargar archivo» → archivo HTTP200.
+- **Cuatro transferencias reales**: MP4 y MP3 en cada dispositivo emulado. MP4: 22.385bytes, H264 320×180 + AAC, 2.020s. MP3: 50.302bytes, solo audio MP3, 2.063673s. FFprobe verificó los cuatro; FFmpeg decodificó MP4 y MP3 sin errores. Sin errores de página, overflow horizontal ni respuestas5xx observadas en estos flujos.
+- Fuente: vídeo propio de2s, azul uniforme y tono sintetizado440Hz, CC0; URI de GitHub y SHA256 inmutables. Se obtiene de verdad por HTTP guardado con yt-dlp y se convierte con FFmpeg en la misma cola y worker de producción. No es un vídeo extraído de una plataforma social.
+- Siete controles públicos pasan: consentimiento obligatorio, rechazo de URL arbitraria en diagnóstico, allowlist ordinaria de seis plataformas sin ampliar, fichero REAL completado inaccesible sin capacidad o con capacidad incorrecta, CORS ajeno rechazado y origen público exacto permitido.
+- Revalidación: **26 tests backend / 24 frontend**; Ruff, TypeScript y build Next.js limpios.
+- Evidencia publicada: `verification/production/browser-results.json`, `policy-results.json` y README. Binarios y capturas se adjuntan en el ZIP de entrega; los JSON no contienen tokens de inspección ni capacidades.
+
+**Límite de aceptación:** esto acredita entrega pública y conversión de contenido propio, NO seis integraciones plenamente verificadas. YouTube respondió HTTP400/RESTRICTED_MEDIA para Big Buck Bunny y Sintel; no se utilizaron cookies, proxies ni evasión. Las otras cinco plataformas tampoco tienen aquí una descarga pública autorizada acreditada. Por tanto, no se declara completado el requisito de funcionamiento probado para las seis plataformas.
+
+Render Free puede dormirse tras15min, tardar aproximadamente1min en arrancar, perder SQLite/archivos al reiniciarse y suspenderse por cuotas o tráfico elevado. Sin método de pago, las cuotas agotadas suspenden servicios/builds en vez de añadir cargos; no se promete disponibilidad estable. Fuente oficial revisada: https://render.com/docs/free. Límites configurados: 120s,16MiB por archivo,128MiB de presupuesto, concurrencia1, cola3, timeout90s; tokens10min y archivos hasta30min, o menos si el host reinicia.
+
+## Registro anterior — frontend y backend conectados, antes del diagnóstico público
 
 Actualización en preparación: diagnóstico público propio CC0 con URI y SHA-256 fijados, separado de las seis plataformas. Revalidación: 26 tests backend, Ruff limpio, 24 tests frontend, TypeScript y build Next.js limpios. Un TestClient con runner REAL confirmó HTTP GitHub público → worker aislado yt-dlp → FFmpeg → archivos MP4 H264/AAC y MP3; esa ejecución todavía es local, no evidencia de descarga desde la web pública. La inspección de Sintel (`HOfdboHvshg`, 53s, licencia https://durian.blender.org/sharing/) también devolvió HTTP400/RESTRICTED_MEDIA desde Render. No se sorteó.
 

@@ -1,0 +1,51 @@
+[
+  {
+    "test": "sample_permission_required",
+    "status": 403,
+    "body": "{\"error\":{\"code\":\"AUTHORIZATION_REQUIRED\",\"message\":\"Debes ser propietario o tener permiso para descargar.\"}}",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "sample_arbitrary_url_rejected",
+    "status": 422,
+    "body": "{\"error\":{\"code\":\"INVALID_REQUEST\",\"message\":\"Solicitud inválida.\"}}",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "ordinary_inspection_stays_six_platforms",
+    "status": 400,
+    "body": "{\"error\":{\"code\":\"INVALID_URL\",\"message\":\"Introduce una URL pública compatible.\"}}",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "existing_completed_file_requires_capability",
+    "status": 404,
+    "body": "{\"error\":{\"code\":\"NOT_FOUND\",\"message\":\"Tarea no encontrada.\"}}",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "existing_completed_file_rejects_wrong_capability",
+    "status": 404,
+    "body": "{\"error\":{\"code\":\"NOT_FOUND\",\"message\":\"Tarea no encontrada.\"}}",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "foreign_origin_rejected",
+    "status": 400,
+    "body": "Disallowed CORS origin",
+    "allow_origin": null,
+    "passed": true
+  },
+  {
+    "test": "production_origin_allowed",
+    "status": 200,
+    "body": "OK",
+    "allow_origin": "https://clipdock-two.vercel.app",
+    "passed": true
+  }
+]
